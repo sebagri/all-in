@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import { createClient, utenteCorrente } from "@/lib/supabase/server";
 import ClienteForm from "../ClienteForm";
@@ -14,8 +15,13 @@ export default async function DettaglioCliente({ params }: { params: Promise<{ i
     <div className="space-y-4">
       <div className="flex flex-wrap items-center gap-3">
         <h1 className="text-2xl font-semibold">{cliente.ragione_sociale}</h1>
+        {utente?.ruolo !== "operaio" && (
+          <Link href={`/preventivi/nuovo?cliente=${id}`} className="bottone-secondario ml-auto">
+            Nuovo preventivo
+          </Link>
+        )}
         {utente?.ruolo === "titolare" && (
-          <form action={eliminaCliente.bind(null, id)} className="ml-auto">
+          <form action={eliminaCliente.bind(null, id)}>
             <button className="text-sm text-red-600 hover:underline">Elimina cliente</button>
           </form>
         )}
