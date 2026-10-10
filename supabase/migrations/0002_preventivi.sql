@@ -108,9 +108,14 @@ alter table preventivi enable row level security;
 alter table voci_preventivo enable row level security;
 
 -- Preventivi e voci: solo titolare e ufficio (gli operai non vedono i prezzi)
-create policy preventivi_ufficio on preventivi for all to authenticated
-  using (ruolo_corrente() in ('titolare', 'ufficio'))
+create policy preventivi_lettura on preventivi for select to authenticated
+  using (ruolo_corrente() in ('titolare', 'ufficio'));
+create policy preventivi_inserimento on preventivi for insert to authenticated
   with check (ruolo_corrente() in ('titolare', 'ufficio'));
+create policy preventivi_modifica on preventivi for update to authenticated
+  using (ruolo_corrente() in ('titolare', 'ufficio'));
+create policy preventivi_eliminazione on preventivi for delete to authenticated
+  using (ruolo_corrente() = 'titolare');
 create policy voci_ufficio on voci_preventivo for all to authenticated
   using (ruolo_corrente() in ('titolare', 'ufficio'))
   with check (ruolo_corrente() in ('titolare', 'ufficio'));
