@@ -27,6 +27,11 @@ export default async function AppLayout({ children }: { children: React.ReactNod
             ))}
           </nav>
           <div className="ml-auto flex items-center gap-3 text-sm">
+            {utente.ruolo === "titolare" && (
+              <Link href="/utenti" className="hover:text-blue-700">
+                Utenti
+              </Link>
+            )}
             <span className="text-slate-500">
               {utente.nome} · {utente.ruolo}
             </span>

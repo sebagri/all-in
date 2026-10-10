@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+@layer base {
+  *, ::before, ::after {
+    border-color: var(--color-slate-200);
+  }
+}
+
 body {
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }

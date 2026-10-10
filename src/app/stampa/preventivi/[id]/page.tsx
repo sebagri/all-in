@@ -68,8 +68,8 @@ export default async function StampaPreventivo({ params }: { params: Promise<{ i
               <td className="py-2 pr-4 whitespace-pre-line">{v.descrizione}</td>
               <td className="py-2 text-center">{v.unita}</td>
               <td className="py-2 text-right">{Number(v.quantita).toLocaleString("it-IT")}</td>
-              <td className="py-2 text-right">{euro(v.prezzo_unitario)}</td>
-              <td className="py-2 text-right">{euro(Number(v.quantita) * Number(v.prezzo_unitario))}</td>
+              <td className="py-2 pl-4 text-right whitespace-nowrap">{euro(v.prezzo_unitario)}</td>
+              <td className="py-2 pl-4 text-right whitespace-nowrap">{euro(Number(v.quantita) * Number(v.prezzo_unitario))}</td>
             </tr>
           ))}
         </tbody>

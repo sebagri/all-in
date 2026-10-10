@@ -1,4 +1,4 @@
-const euroFmt = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR" });
+const euroFmt = new Intl.NumberFormat("it-IT", { style: "currency", currency: "EUR", useGrouping: "always" });
 const dataFmt = new Intl.DateTimeFormat("it-IT");
 
 export const euro = (n: number | string | null | undefined) => euroFmt.format(Number(n ?? 0));
@@ -33,3 +33,14 @@ export const coloriStato: Record<string, string> = {
   completata: "bg-green-100 text-green-800",
   annullata: "bg-slate-100 text-slate-700",
 };
+
+export const categorieCosto = ["materiale", "subappalto", "noleggio", "trasferta", "altro"] as const;
+export const etichetteCategoria: Record<string, string> = {
+  materiale: "Materiale",
+  subappalto: "Subappalto",
+  noleggio: "Noleggio",
+  trasferta: "Trasferta",
+  altro: "Altro",
+};
+export const statiCommessa = ["aperta", "in_corso", "completata", "annullata"] as const;
+export const oggi = () => new Date().toISOString().slice(0, 10);

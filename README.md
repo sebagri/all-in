@@ -7,7 +7,7 @@ Next.js + Supabase (database PostgreSQL, login e allegati).
 
 - [x] Fase 1: login con ruoli (titolare, ufficio, operaio) e anagrafica clienti
 - [x] Fase 2: preventivi con voci, stampa/PDF e conversione in commessa
-- [ ] Fase 3: commesse (ore, costi, documenti, margine)
+- [x] Fase 3: commesse con ore, costi, documenti e margine; pagina utenti
 - [ ] Fase 4: presenze
 - [ ] Fase 5: scadenze e promemoria
 - [ ] Fase 6: fatturazione (poi fattura elettronica SDI tramite servizio esterno)
@@ -30,6 +30,10 @@ Next.js + Supabase (database PostgreSQL, login e allegati).
 | ufficio  | legge, crea, modifica           | tutto tranne eliminare         |
 | operaio  | solo lettura (senza importi)    | non li vede                    |
 
+Sulle commesse l'operaio registra e vede solo le proprie ore e può caricare documenti e foto;
+costi, costo orario e margine li vedono solo titolare e ufficio. Ruoli e costo orario si
+gestiscono dalla pagina **Utenti** (solo titolare).
+
 I permessi sono applicati nel database (Row Level Security), non solo nell'interfaccia.
 
 ## Preventivi
@@ -38,3 +42,11 @@ I permessi sono applicati nel database (Row Level Security), non solo nell'inter
 - Voci con unità di misura, quantità e prezzo; totali con IVA calcolati in automatico.
 - "Stampa / PDF" apre una pagina pronta da stampare o salvare come PDF dal browser.
 - "Accettato: crea commessa" genera la commessa collegata (codice 2026-001, ...) con l'imponibile come importo previsto; da lì il preventivo non è più modificabile.
+
+## Commesse
+
+- Nascono da un preventivo accettato oppure con "Nuova commessa".
+- Ore lavorate per persona e giorno; il costo della manodopera usa il costo orario impostato in **Utenti**.
+- Costi diretti per categoria (materiale, subappalto, noleggio, trasferta, altro).
+- Documenti e foto salvati nello storage di Supabase (bucket privato `documenti`, creato dalla migrazione 0003).
+- Riepilogo con importo previsto, manodopera, altri costi e margine (anche nell'elenco commesse).
